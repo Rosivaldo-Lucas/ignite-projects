@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto';
 import z from 'zod';
 
 import { prisma } from '../../lib/prisma';
+import { redis } from '../../lib/redis';
 
 export async function voteOnPoll(app: FastifyInstance) {
   app.post('/polls/:pollId/votes', async (request, reply) => {
@@ -29,15 +30,21 @@ export async function voteOnPoll(app: FastifyInstance) {
         }
       });
 
+      if (!userPreviousVoteOnPoll) {
+        return reply.status(404).send({ message: 'Poll not found.' })
+      }
+
       if (userPreviousVoteOnPoll && userPreviousVoteOnPoll.poll_option_id === pollOptionId) {
         return reply.status(400).send({ message: 'You already voted on this poll.' })
       }
 
       await prisma.pollVote.delete({
         where: {
-          id: userPreviousVoteOnPoll?.id
+          id: userPreviousVoteOnPoll.id
         }
       });
+
+      await redis.zincrby(pollId, -1, userPreviousVoteOnPoll.poll_option_id);
     }
 
     if (!sessionId) {
@@ -58,6 +65,8 @@ export async function voteOnPoll(app: FastifyInstance) {
         poll_option_id: pollOptionId
       }
     })
+
+    await redis.zincrby(pollId, 1, pollOptionId);
 
     return reply.status(201).send();
   });

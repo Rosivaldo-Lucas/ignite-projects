@@ -1,6 +1,11 @@
+import { format, formatDistanceToNow } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
+
 import { Avatar } from '../Avatar/Avatar';
 import { Comment } from '../Comment/Comment';
+
 import styles from './Post.module.css';
+import { useState } from 'react';
 
 export type PostProps = {
   id: number,
@@ -17,6 +22,32 @@ export type PostProps = {
 };
 
 export function Post(props: PostProps) {
+  const [comments, setComments] = useState([
+    'Teste de comentário'
+  ]);
+
+  const [newCommentText, setNewCommentText] = useState('');
+
+  const publishedDateFormatted = format(props.publishedAt, `d 'de' LLLL 'às' HH:mm'h'`, {
+    locale: ptBR.ptBR,
+  });
+
+  const publishedDateRelativeToNow = formatDistanceToNow(props.publishedAt, {
+    locale: ptBR.ptBR,
+    addSuffix: true,
+  });
+
+  function handleCreateNewComment() {
+    event?.preventDefault();
+
+    setComments([...comments, newCommentText]);
+    setNewCommentText('');
+  }
+
+  function handleNewCommentTextChange() {
+    setNewCommentText(event?.target.value);
+  }
+
   return (
     <article className={styles.post}>
       <header>
@@ -29,7 +60,9 @@ export function Post(props: PostProps) {
           </div>
         </div>
 
-        <time title='11 de Maio às 08:13h' dateTime='2022-05-11 08:13:50'>Publicado há 1h</time>
+        <time title={publishedDateFormatted} dateTime={props.publishedAt.toISOString()}>
+          {publishedDateRelativeToNow}
+        </time>
       </header>
 
       <div className={styles.content}>
@@ -62,11 +95,14 @@ export function Post(props: PostProps) {
         })}
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
 
         <textarea
+          name='comment'
+          value={newCommentText}
           placeholder='Deixe um comentário'
+          onChange={handleNewCommentTextChange}
         />
 
         <footer>
@@ -75,7 +111,9 @@ export function Post(props: PostProps) {
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
+        {comments.map(comment => {
+          return <Comment content={comment} />
+        })}
       </div>
     </article>
   );

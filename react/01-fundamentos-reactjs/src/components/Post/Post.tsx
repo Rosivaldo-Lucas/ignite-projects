@@ -5,7 +5,7 @@ import { Avatar } from '../Avatar/Avatar';
 import { Comment } from '../Comment/Comment';
 
 import styles from './Post.module.css';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 
 export type PostProps = {
   id: number,
@@ -37,19 +37,19 @@ export function Post(props: PostProps) {
     addSuffix: true,
   });
 
-  function handleCreateNewComment() {
+  function handleCreateNewComment(event: FormEvent) {
     event?.preventDefault();
 
     setComments([...comments, newCommentText]);
     setNewCommentText('');
   }
 
-  function handleNewCommentTextChange() {
+  function handleNewCommentTextChange(event: ChangeEvent<HTMLTextAreaElement>) {
     event?.target.setCustomValidity('');
     setNewCommentText(event?.target.value);
   }
 
-  function handleNewCommentTextInvalid() {
+  function handleNewCommentTextInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
     event?.target.setCustomValidity('Esse campo é obrigatório.');
   }
 

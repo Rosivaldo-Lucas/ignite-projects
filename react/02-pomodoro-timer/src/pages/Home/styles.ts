@@ -101,15 +101,15 @@ export const StartCountdownButton = styled.button`
   font-weight: bold;
   cursor: pointer;
 
-  background: ${(props) => props.theme['green-500']};;
-  color: ${(props) => props.theme['gray-100']};;
+  background: ${(props) => props.theme['green-500']};
+  color: ${(props) => props.theme['gray-100']};
 
-  &:not(:disabled):hover {
-    opacity: 0.7;
+  &:disabled {
+    opacity: 0.5;
     cursor: not-allowed;
   }
 
   &:hover {
-    background: ${(props) => props.theme['green-700']};;
+    background: ${(props) => props.theme['green-700']};
   }
 `;

@@ -16,11 +16,18 @@ interface CyclesState {
   cycles: Cycle[];
 }
 
-export function cyclesReducer(state: CyclesState, action: any): CyclesState {
+interface Action {
+  type: ActionTypes;
+  payload?: Cycle;
+}
+
+export function cyclesReducer(state: CyclesState, action: Action): CyclesState {
   if (action.type === ActionTypes.ADD_NEW_CYCLE) {
     return produce(state, (draft) => {
-      draft.activeCycleId = action.payload.data.id;
-      draft.cycles.push(action.payload.data);
+      if (action.payload) {
+        draft.activeCycleId = action.payload.id;
+        draft.cycles.push(action.payload);
+      }
     });
     
     // return {

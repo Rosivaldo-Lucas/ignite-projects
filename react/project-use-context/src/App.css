@@ -1,6 +1,17 @@
-.container-main {
+.container-dark {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #242424;
+}
+
+.container-light {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #505050;
 }

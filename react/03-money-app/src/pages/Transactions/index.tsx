@@ -4,12 +4,12 @@ import { Header } from "../../components/Header";
 import { Summary } from "../../components/Summary";
 import { SearchForm } from "../../components/SearchForm";
 import { TransactionContext } from "../../contexts/transactions/transactionContext";
-
-import { PriceHighLight, TransactionsContainer, TransactionsTable } from "./styles";
 import { dateFormatter, priceFormatter } from "../../utils/formatter";
 
+import { PriceHighLight, TransactionsContainer, TransactionsTable } from "./styles";
+
 export function Transaction() {
-  const {transactions, handleAddNewTransaction} = useContext(TransactionContext);
+  const {transactions } = useContext(TransactionContext);
 
   return (
     <div>

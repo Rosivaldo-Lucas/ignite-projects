@@ -1,7 +1,7 @@
 import { MagnifyingGlass } from 'phosphor-react';
 import { SearchFormContainer } from './styles';
 
-export default function SearchForm() {
+export function SearchForm() {
     return (
         <SearchFormContainer>
             <input

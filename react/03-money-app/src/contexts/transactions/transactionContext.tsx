@@ -4,6 +4,7 @@ import { TransactionType } from "./transaction";
 
 interface TransactionContextTypeProps {
   transactions: TransactionType[];
+  fetchTransactions: (query?: string) => Promise<void>;
   handleAddNewTransaction: (transaction: TransactionType) => void;
 }
 
@@ -17,22 +18,28 @@ export function TransactionProvider({ children }: TransactionContextProviderProp
   const [transactions, setTransactions] = useState<TransactionType[]>([]);
 
   useEffect(() => {
-    async function loadTransactions() {
-      const response = await fetch('http://localhost:3333/transactions');
-      const data = await response.json();
+    fetchTransactions();
+  }, []);
 
-      setTransactions(data);
+  async function fetchTransactions(query?: string) {
+    const url = new URL('http://localhost:3333/transactions');
+
+    if (query) {
+      url.searchParams.append('q', query);
     }
 
-    loadTransactions();
-  }, []);
+    const response = await fetch(url);
+    const data = await response.json();
+
+    setTransactions(data);
+  }
 
   const handleAddNewTransaction = (transaction: TransactionType) => {
     setTransactions(prev => [...prev, transaction]);
   };
 
   return (
-    <TransactionContext.Provider value={{ transactions, handleAddNewTransaction }}>
+    <TransactionContext.Provider value={{ transactions, fetchTransactions, handleAddNewTransaction }}>
       {children}
     </TransactionContext.Provider>
   );

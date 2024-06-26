@@ -1,7 +1,7 @@
 {
   "transactions": [
     {
-      "id": 1,
+      "id": "1",
       "description": "Desenvolvimento de sites",
       "type": "income",
       "category": "Venda",
@@ -9,12 +9,44 @@
       "createdAt": "2024-06-25T19:36:44.505Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "description": "Desenvolvimento de Java",
       "type": "outcome",
       "category": "Venda",
       "price": 20000,
       "createdAt": "2024-06-25T19:36:44.505Z"
+    },
+    {
+      "id": "eaab",
+      "description": "React Course",
+      "price": 500,
+      "category": "Course",
+      "type": "income",
+      "createdAt": "2024-06-26T15:56:00.000Z"
+    },
+    {
+      "id": "6c82",
+      "description": "Full Stack",
+      "price": 1000,
+      "category": "Course",
+      "type": "outcome",
+      "createdAt": "2024-06-26T16:08:34.690Z"
+    },
+    {
+      "id": "a105",
+      "description": "Full Cycle",
+      "price": 3000,
+      "category": "6500",
+      "type": "income",
+      "createdAt": "2024-06-26T16:09:49.093Z"
+    },
+    {
+      "id": "00fc",
+      "description": "Teste",
+      "price": 100000,
+      "category": "Teste",
+      "type": "income",
+      "createdAt": "2024-06-26T16:10:14.207Z"
     }
   ]
 }

@@ -1,5 +1,13 @@
+import { styled } from '@/styles/stitches.config';
+
+const Button = styled('button', {
+  color: '$shopapp',
+});
+
 export default function Home() {
   return (
-    <h1>Teste</h1>
+    <>
+      <Button>Click</Button>
+    </>
   );
 }

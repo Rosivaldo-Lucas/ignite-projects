@@ -1,12 +1,16 @@
-import { getCssText } from '@/styles/stitches.config';
 import type { Metadata } from 'next';
+
+import { getCssText } from '@/styles/stitches.config';
+import { globalStyles } from '@/styles/global';
 
 export const metadata: Metadata = {
   title: 'Shop App',
   description: 'App Shop',
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+globalStyles();
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {  
   return (
     <html lang="en">
       <head>

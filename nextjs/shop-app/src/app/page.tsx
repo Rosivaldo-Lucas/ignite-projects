@@ -6,8 +6,6 @@ const Button = styled('button', {
 
 export default function Home() {
   return (
-    <>
-      <Button>Click</Button>
-    </>
+    <Button>Click</Button>
   );
 }

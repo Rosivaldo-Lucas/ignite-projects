@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { getCssText } from '@/styles/stitches.config';
 import { globalStyles } from '@/styles/global';
+import Header from '@/components/Header/Header';
 
 export const metadata: Metadata = {
   title: 'Shop App',
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
 
       <body>
+        <Header />
         {children}
       </body>
     </html>
